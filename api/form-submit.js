@@ -15,17 +15,28 @@ const firebaseApp = initializeApp(firebaseConfig);
 const db = getDatabase(firebaseApp);
 
 export default async function handler(req, res) {
+  // 👉 Encabezados CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método no permitido' });
   }
 
-  const formData = req.body;
-
-  if (!formData.email || !formData.nombre) {
-    return res.status(400).json({ error: 'Faltan campos obligatorios' });
+  let formData;
+  try {
+    formData = req.body;
+  } catch (err) {
+    return res.status(400).json({ error: 'JSON inválido en el cuerpo de la solicitud' });
   }
 
-  const cleanEmail = formData.email.replace(/[.#$\[\]]/g, '_');
+  const email = formData?.datosPersonales?.email;
+  const cleanEmail = email?.replace(/[.#$\[\]]/g, '_');
+
+  if (!cleanEmail) {
+    return res.status(400).json({ error: 'El campo email es obligatorio' });
+  }
 
   try {
     const otpSnapshot = await get(ref(db, `otp/${cleanEmail}`));
