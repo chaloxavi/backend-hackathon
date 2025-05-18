@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend para OTP y formularios con Firebase",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "node index.js"
+  },
+  "author": "chaloxavi",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "firebase": "^11.7.3",
+    "nodemailer": "^7.0.3"
+  }
+}
