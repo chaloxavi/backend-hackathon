@@ -10,7 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = 8080;
+const PORT = process.env.PORT || 3000;
 
 // Firebase config
 const firebaseConfig = {
