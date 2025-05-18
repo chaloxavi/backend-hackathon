@@ -10,7 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = 3000;
+const PORT = 8080;
 
 // Firebase config
 const firebaseConfig = {
@@ -126,4 +126,8 @@ app.get('/form/list', async (req, res) => {
     console.error('Error obteniendo formularios:', error);
     res.status(500).json({ error: 'No se pudo obtener la lista de formularios' });
   }
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
